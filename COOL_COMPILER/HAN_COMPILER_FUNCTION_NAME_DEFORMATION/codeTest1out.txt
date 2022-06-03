@@ -1,0 +1,1 @@
+new:pi=3.14;new:d=3333;@(30){_ARG_main_ARG__ARG__ARG_intrr(_ARG_shit_ARG_(c,d+_ARG__ARG__ARG_u(e,a,v)^30_main()),a,b,(c+d)*a+d)}{a-->0;b-->0;c-->0;d-->0;}main_ARG__ARG__ARG_(1,2,pi);

@@ -1,0 +1,1 @@
+new:pi=3.14;new:d=3333;@(30){((c)shit(d+(e,a,v)u()^30_main()))ma()in(a,b,(c+d)*a+d)intrr}{a-->0;b-->0;c-->0;d-->0;}main(1,2,pi);

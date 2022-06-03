@@ -1,0 +1,1 @@
+system:OperationLaw{e:@(-10){$a==b}{re:a-b==0;}e:@(-10){#a-b}{re:a+(-b);}}system:QuadraticEquation{@(-100){a*$x^2+b*x+c==0;}{x=(-b+(b^2-4*a*c)^0.5)/(2*a);}}system:MainProcess<<OperationLaw,QuadraticEquation{new:x=1;@constructor(){1*$x^2+4*x==100;x-->0;}@selfIncrease(n){x=x+n;}};MainProcess:m;m.constructor();m.selfIncrease(10);m.x-->0;

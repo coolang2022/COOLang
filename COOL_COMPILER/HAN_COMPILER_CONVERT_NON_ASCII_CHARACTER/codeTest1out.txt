@@ -1,0 +1,1 @@
+@(10){$a+b}{a=ans-b;}@(10){$a==b;}{a=b;}@_uBA__uCF__uB2__uA2_(a)_uD3__uEB_(b){re:a+b;}=>@_uBA__uCF__uB2__uA2_($a)_uD3__uEB_(b);new:x=0;new:y=3;_uBA__uCF__uB2__uA2_($x)_uD3__uEB_(y)==5;x-->0;

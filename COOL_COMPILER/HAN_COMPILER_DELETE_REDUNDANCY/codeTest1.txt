@@ -1,0 +1,32 @@
+system:OperationLaw{
+//移项变换
+e:@(-10){$a==b}{
+   		re:a-b==0;
+}
+//加减转换
+e:@(-10){#a-b}{
+   		re:a+(-b);
+}
+}
+system: QuadraticEquation{
+//求解一元二次方程
+@(-100){ a*$x^2+b*x+c==0;}{//$符号后的变量经过式子后可能会改变
+		x=(-b+(b^2-4*a*c)^0.5)/(2*a);
+}
+}
+
+
+system:MainProcess<< OperationLaw,QuadraticEquation { //“<<”表示继承
+	new:x=1;
+	@constructor(){
+		1*$x^2+4*x==100;
+		x-->0;
+}
+@selfIncrease(n){
+	x=x+n;
+}
+};
+MainProcess:m;//这是常规创建类对象的方式
+m.constructor();
+m.selfIncrease(10);
+m.x-->0;

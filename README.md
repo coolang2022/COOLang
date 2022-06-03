@@ -19,6 +19,8 @@ the grammar description of COOLang;
 ## code for test
 the test code, contains some code examples for users.
 
+[Learn more](dreameng.tech)
+
 # COOLang
 >文件结构如下
 ##  COOL_COMPILER
@@ -39,3 +41,5 @@ the test code, contains some code examples for users.
   
 ##  code for test
 >测试用代码，包含了一些代码示例
+
+[了解更多](dreameng.tech)

@@ -15,3 +15,19 @@
   
   4 “code for test”，测试用代码，包含了一些代码示例
 
+
+This is the source code of COOLang's compiler and virtual machine
+1 "COOL_COMPILER", the compiler code, which includes:
+  a. Precompilation part: 
+    HAN_COMPILER_DELETE_REDUNDANCY, used to delete space comments, etc.;            
+    HAN_COMPILER_CONVERT_NON_ASCII_CHARACTER, used to convert non-ASCII characters into ASCII characters;
+    HAN_COMPILER_FUNCTION_NAME_DEFORMATION, used to modify the function name;
+  b. Compilation part: 
+    HAN_COMPILER_AUTO_INTEGRATE, used to generate character codes.
+  When the debug macro of the generated character code in the compiler is true,"codeTest1.txt" is the input code file, "codeTest1out.txt" is the output code file; when the debug macro is false, you need to specify the input and output files on the command line;
+
+2 "COOL_VM", virtual machine's code, when the debug macro in the virtual machine is true, "assemblyCode.txt" is the file of the input code; when the debug macro is false, you need to specify the input code file on the command ;
+
+3 "grammar", the grammar description of COOLang;
+
+4 "code for test", the test code, contains some code examples for users.

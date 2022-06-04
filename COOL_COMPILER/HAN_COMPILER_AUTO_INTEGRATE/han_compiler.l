@@ -1,5 +1,5 @@
 %{
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,6 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>
@@ -86,7 +85,7 @@ FUNCTIONNAME		([a-zA-Z_]+[a-zA-Z_0-9]*)/"("
 <INITIAL>"."				{puts("lex>>Find DOT");puts(yytext);yylval.argp=matchToken(1, Token::DOT, Bs,yytext);return DOT;}
 
 \"º¯ÊýÉùÃ÷ÊôÐÔ\"
-<INITIAL>"e"/":"			{puts("lex>>Find function_declare_attribute e");puts(yytext);yylval.argp=matchToken(1, Token::function_declare_attribute, Bs,yytext);return function_declare_attribute;}
+<INITIAL>("e"|"exp"|"expression")/":"			{puts("lex>>Find function_declare_attribute e");puts(yytext);yylval.argp=matchToken(1, Token::function_declare_attribute, Bs,yytext);return function_declare_attribute;}
 <INITIAL>"!"/":"			{puts("lex>>Find function_declare_attribute !");puts(yytext);yylval.argp=matchToken(1, Token::function_declare_attribute, Bs,yytext);return function_declare_attribute;}
 <INITIAL>"@"/(":")			{puts("lex>>Find function_declare_attribute @");puts(yytext);yylval.argp=matchToken(1, Token::function_declare_attribute, Bs,yytext);return function_declare_attribute;}
 <INITIAL>"@"/(([a-zA-Z_]+[a-zA-Z_0-9]*)"(")		{puts("lex>>Find function_declare_attribute @{FUNCTIONNAME}");puts(yytext);yylval.argp=matchToken(1, Token::function_declare_attribute, Bs,yytext);return function_declare_attribute;}

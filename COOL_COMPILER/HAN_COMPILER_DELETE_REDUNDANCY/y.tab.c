@@ -2576,7 +2576,7 @@ yypdumpstack (yyGLRStack* yystackp)
 
 
 int main(int argc, char *argv[]){
-#define debug true
+#define debug false
 #if debug
 	extern FILE * yyin;
 	extern FILE * yyout ;

@@ -1,5 +1,5 @@
 %{
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -284,7 +284,9 @@ loop:		WHILE	LSCUR	expression	RSCUR	autoScope			{puts("yacc>>loop:WHILE	LSCUR	ex
 %%
 
 int main(int argc, char *argv[]){
-#define debug true
+#ifndef debug
+#define debug false
+#endif
 #if debug
 	extern FILE * yyin;
 	extern FILE * yyout ;

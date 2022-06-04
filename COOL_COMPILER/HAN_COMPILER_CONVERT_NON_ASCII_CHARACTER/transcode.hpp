@@ -1,4 +1,4 @@
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -13,6 +13,7 @@
     You should have received a copy of the GNU Lesser General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 #ifndef TRANSCODE_H_
 #define TRANSCODE_H_
 #include <iostream>

@@ -1,4 +1,4 @@
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -128,7 +128,7 @@ public:
     deque<Block> argdq;
     //前缀：：存放@#$+——*/,?:等可以位于函数/变量前面，而不属于其他函数/变量的字符（串）
     deque<Block> prefixdq;
-    //后缀：：存放+——*/,?:等可以位于函数后面的操作符，一般位于函数/变量后面，而不属于其他函数/变量的字符（串）
+    //后缀：：存放+—*/,?.<< =>-->:等可以位于函数后面的操作符，一般位于函数/变量后面，而不属于其他函数/变量的字符（串）
     //如果一个操作符可以放在前面也可以放在后面（作为后缀），优先将其作为后缀
     deque<Block> suffixdq;
 private:
@@ -370,8 +370,17 @@ public:
             }
 #endif
             if (switcher == switch_comma) {
-                addBrotherArgFNBlock();
-                currentFN->parentFN->namedq.push_back(Block(false, INSERTSTRG));
+                if (currentFN->parentFN) {
+                    addBrotherArgFNBlock();
+                    currentFN->parentFN->namedq.push_back(
+                            Block(false, INSERTSTRG));
+                } else {
+                    //当前fn没有父fn，则不是函数，仅仅是语句并列，按照switch_other处理
+                    switcher = switch_other;
+                    flush();
+                    lastSwitcher = switcher;
+                    return;
+                }
 
             } else if (switcher == switch_rscur) {
                 currentFN->parentFN->namedq.push_back(Block(false, INSERTSTRG));
@@ -583,6 +592,15 @@ public:
             addBlock(switch_other, text);
             break;
         case Token::SHUCHU:
+            addBlock(switch_suffix, text);
+            break;
+        case Token::TUIDAO:
+            addBlock(switch_suffix, text);
+            break;
+        case Token::JICHENG:
+            addBlock(switch_suffix, text);
+            break;
+        case Token::DOT:
             addBlock(switch_suffix, text);
             break;
         case Token::XIAOYU:

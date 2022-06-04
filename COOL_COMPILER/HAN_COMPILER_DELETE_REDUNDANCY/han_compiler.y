@@ -1,5 +1,5 @@
 %{
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -88,7 +88,7 @@ argAttr	:	NAME	DOTDOT						{stradd($$,$1,$2);printf("[12]%s\n",$$);}
 %%
 
 int main(int argc, char *argv[]){
-#define debug true
+#define debug false
 #if debug
 	extern FILE * yyin;
 	extern FILE * yyout ;

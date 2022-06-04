@@ -46,44 +46,49 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     LSCUR = 258,
-     RSCUR = 259,
-     LMCUR = 260,
-     RMCUR = 261,
-     LBCUR = 262,
-     RBCUR = 263,
-     COMMA = 264,
-     SEMICOLON = 265,
-     IF = 266,
-     ELSE = 267,
-     ELSEIF = 268,
-     ELIF = 269,
-     WHILE = 270,
-     function_declare_attribute = 271,
-     changeable_attribute = 272,
-     variable_specific_attribute = 273,
-     attribute = 274,
-     arg = 275,
-     _return_ = 276,
-     LOWEST = 277,
-     _return_low = 278,
-     _return_high = 279,
-     SHUCHU = 280,
-     FUZHI = 281,
-     XIAOYU = 282,
-     DAYU = 283,
-     DENGYU = 284,
-     JIAN = 285,
-     JIA = 286,
-     CHU = 287,
-     CHENG = 288,
-     MI = 289,
-     NEG = 290,
-     CALL = 291,
-     DOTDOT = 292,
-     PENDCHANGEABLE = 293,
-     CHANGEABLE = 294,
-     HIGHEST = 295
+     LMCUR = 258,
+     RMCUR = 259,
+     LBCUR = 260,
+     RBCUR = 261,
+     SEMICOLON = 262,
+     IF = 263,
+     ELSE = 264,
+     ELSEIF = 265,
+     ELIF = 266,
+     WHILE = 267,
+     function_declare_attribute = 268,
+     system_declare_attribute = 269,
+     changeable_attribute = 270,
+     variable_specific_attribute = 271,
+     attribute = 272,
+     arg = 273,
+     _return_ = 274,
+     LOWEST = 275,
+     LOW = 276,
+     _return_low = 277,
+     _return_high = 278,
+     COMMA = 279,
+     TUIDAO = 280,
+     JICHENG = 281,
+     SHUCHU = 282,
+     FUZHI = 283,
+     XIAOYU = 284,
+     DAYU = 285,
+     DENGYU = 286,
+     JIAN = 287,
+     JIA = 288,
+     CHU = 289,
+     CHENG = 290,
+     MI = 291,
+     NEG = 292,
+     RSCUR = 293,
+     LSCUR = 294,
+     CALL = 295,
+     DOTDOT = 296,
+     PENDCHANGEABLE = 297,
+     CHANGEABLE = 298,
+     DOT = 299,
+     HIGHEST = 300
    };
 #endif
 
@@ -93,17 +98,17 @@ typedef union YYSTYPE
 /* Line 2579 of glr.c  */
 #line 34 "han_compiler.y"
 
-
-    char    str[2048];
-    char *  toString(){return str;}
-    int argp;
-    int exprp;
+	
+	char	str[2048];
+	char *  toString(){return str;}
+	int argp;
+	int exprp;
 
 
 
 
 /* Line 2579 of glr.c  */
-#line 107 "y.tab.h"
+#line 112 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

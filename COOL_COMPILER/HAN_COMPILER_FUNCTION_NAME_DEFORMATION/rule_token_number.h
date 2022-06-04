@@ -1,4 +1,4 @@
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -71,6 +71,7 @@ enum Rule {
     scopeHalf___scopeHalf_functionDeclare,
     scopeHalf___scopeHalf_scope,
     scope___scopeHalf_RBCUR,
+    scope___scopeBegin_RBCUR,
 
     /*函数声明部分*/
     expressionFunctionDeclareRoot___JIAN_expression,
@@ -106,13 +107,20 @@ enum Rule {
     autoScopeHalf___autoScopeBegin_expressionFunctionDeclareRoot_SEMICOLON, //todo: 需要修改，有一定冲突
     autoScope___autoScopeHalf_autoScopeEnd,
 
-    functionDeclare___function_declare_attribute_DOTDOT_autoScope,
-    functionDeclare___function_declare_attribute_DOTDOT_scopeFunctionDeclare,
-    functionDeclare___function_declare_attribute_scopeFunctionDeclare,
-    functionDeclare___function_declare_attribute_autoscope,
-    functionDeclare___function_declare_attribute_functionDeclare,
-    functionDeclare___function_declare_attribute_DOTDOT_functionDeclare,
+    functionDeclareBegin___function_declare_attribute_DOTDOT_autoScope,
+    functionDeclareBegin___function_declare_attribute_DOTDOT_scopeFunctionDeclare,
+    functionDeclareBegin___function_declare_attribute_scopeFunctionDeclare,
+    functionDeclareBegin___function_declare_attribute_autoscope,
+    functionDeclareBegin___function_declare_attribute_functionDeclareBegin,
+    functionDeclareBegin___function_declare_attribute_DOTDOT_functionDeclareBegin,
+
+    functionDeclareHalf___functionDeclareBegin_JICHENG_arg,
+
+    functionDeclare___functionDeclareBegin,
+    functionDeclare___functionDeclareHalf,
+
     functionImplement___functionDeclare_scope,
+    functionImplement___functionImplement_TUIDAO_functionDeclare,
 //
 //    sentenceFunctionDeclare_null___NULL,
 //    sentenceFunctionDeclare___expressionFunctionDeclareRoot_SEMICOLON,
@@ -146,6 +154,20 @@ enum Rule {
     branch___branchEnd,
     loop___WHILE_LSCUR_expression_RSCUR_autoScope,
     loop___WHILE_LSCUR_expression_RSCUR_scope,
+
+    systemDeclareBegin___system_declare_attribute_DOTDOT_arg,
+    systemDeclareHalf___systemDeclareBegin_JICHENG_arg,
+    systemDeclare___systemDeclareBegin,
+    systemDeclare___systemDeclareHalf,
+    systemImplement___systemDeclare_scope,
+    environment___systemImplement,
+    sentence___systemDeclare_SEMICOLON,
+    scopeHalf___scopeHalf_systemImplement,
+    scopeHalf___scopeHalf_systemDeclare,
+    sentence___functionImplement,
+    sentence___systemImplement,
+
+    expression___expression_DOT_expression
 
 };
 

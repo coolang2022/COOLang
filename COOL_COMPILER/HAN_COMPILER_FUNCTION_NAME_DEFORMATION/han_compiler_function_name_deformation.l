@@ -1,5 +1,5 @@
 %{
-/*  COOLang Compiler
+/*  COOLang compiler implementation
     Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
     This program is free software: you can redistribute it and/or modify
@@ -62,8 +62,10 @@ FUNCTIONNAME		([a-zA-Z_]+[a-zA-Z_0-9]*)/"("
 
 
 \"运算符\"
-<INITIAL>"="				{puts("lex>>Find FUZHI");puts(yytext);addToken(Token::FUZHI,yytext);}
 <INITIAL>"=="				{puts("lex>>Find DENGYU");puts(yytext);addToken(Token::DENGYU,yytext);}
+<INITIAL>"=>"				{puts("lex>>Find TUIDAO");puts(yytext);addToken(Token::TUIDAO,yytext);}
+<INITIAL>"<<"				{puts("lex>>Find JICHENG");puts(yytext);addToken(Token::JICHENG,yytext);}
+<INITIAL>"="				{puts("lex>>Find FUZHI");puts(yytext);addToken(Token::FUZHI,yytext);}
 <INITIAL>"-->"				{puts("lex>>Find SHUCHU");puts(yytext);addToken(Token::SHUCHU,yytext);}
 <INITIAL>">"				{puts("lex>>Find DAYU");puts(yytext);addToken(Token::DAYU,yytext);}
 <INITIAL>"<"				{puts("lex>>Find XIAOYU");puts(yytext);addToken(Token::XIAOYU,yytext);}
@@ -75,9 +77,10 @@ FUNCTIONNAME		([a-zA-Z_]+[a-zA-Z_0-9]*)/"("
 <INITIAL>":"				{puts("lex>>Find DOTDOT");puts(yytext);addToken(Token::DOTDOT,yytext);}
 <INITIAL>"$"				{puts("lex>>Find CHANGEABLE");puts(yytext);addToken(Token::CHANGEABLE,yytext);}
 <INITIAL>"#"				{puts("lex>>Find PENDCHANGEABLE");puts(yytext);addToken(Token::PENDCHANGEABLE,yytext);}
+<INITIAL>"."				{puts("lex>>Find DOT");puts(yytext);addToken(Token::DOT, yytext);}
 
 \"函数声明属性\"
-<INITIAL>"e"/":"			{puts("lex>>Find function_declare_attribute e");puts(yytext);addToken(Token::function_declare_attribute,yytext);}
+<INITIAL>("e"|"exp"|"expression")/":"	{puts("lex>>Find function_declare_attribute e");puts(yytext);addToken(Token::function_declare_attribute,yytext);}
 <INITIAL>"@"/(":")			{puts("lex>>Find function_declare_attribute @");puts(yytext);addToken(Token::function_declare_attribute,yytext);}
 <INITIAL>"@"/(([a-zA-Z_]+[a-zA-Z_0-9]*)"(")		{puts("lex>>Find function_declare_attribute @{FUNCTIONNAME}");puts(yytext);addToken(Token::function_declare_attribute,yytext);}
 <INITIAL>"@("				{BEGIN ATTRIBUTE;puts("lex>>Find function_declare_attribute @");puts(yytext);addToken(Token::function_declare_attribute,yytext);}
@@ -97,7 +100,7 @@ FUNCTIONNAME		([a-zA-Z_]+[a-zA-Z_0-9]*)/"("
 <INITIAL>"\""				{BEGIN STRING;puts("lex>>Find string start");puts(yytext);}
 <STRING>[.\n]*/"\""			{puts("lex>>Find string content");puts(yytext);addToken(Token::arg,yytext);}
 <STRING>"\""				{puts("lex>>Find string end");puts(yytext);}
-<INITIAL>([a-zA-Z_]+[a-zA-Z_0-9]*)/("("|"{")	{
+<INITIAL>([a-zA-Z_]+[a-zA-Z_0-9]*)/("(")	{
     if (strcmp(yytext, "if") == 0) {
 	puts("lex>>Find IF");puts(yytext);
 	addToken( Token::IF, yytext);
@@ -214,8 +217,9 @@ int yywrap()//此函数必须由用户提供,或者声明
 }
 
 int main(int argc, char *argv[]){
-
+#ifndef
 #define debug false
+#endif
 #if debug
 	pretreate();
 #else

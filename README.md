@@ -19,7 +19,7 @@ the grammar description of COOLang;
 ## code for test
 the test code, contains some code examples for users.
 
-[Try the COOLang IDE](dreameng.tech)
+[Develop together](dreameng.tech)
 
 # COOLang
 >文件结构如下
@@ -42,4 +42,4 @@ the test code, contains some code examples for users.
 ##  code for test
 >测试用代码，包含了一些代码示例
 
-[下载酷语言IDE](dreameng.tech)
+[加入我加入我加入我](dreameng.tech)

@@ -1,18 +1,18 @@
 /*  COOLang VM implementation
-    Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
+ Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, version LGPL-3.0-or-later.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, version LGPL-3.0-or-later.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #ifndef VM_EXECUTE_HPP_
 #define VM_EXECUTE_HPP_
@@ -2121,7 +2121,8 @@ const bool Executer::execute() {
 #if debug
         {
             static int ignorecount = 0;
-            cout << "Executer::execute()" << " " << "\tignorecount:["
+            cout << "Executer::execute()" << " currentCodeAddr:["
+                    << currentCodeAddr.toStrg() << "]" << "\tignorecount:["
                     << ignorecount++ << "\t]("
                     << "D:/eclipseC&CPP-workspace/HAN_VM/includes/vm_execute.hpp:"
                     << __LINE__ << ":0" << ")" << endl;

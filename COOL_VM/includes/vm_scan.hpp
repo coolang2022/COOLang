@@ -1,18 +1,18 @@
 /*  COOLang VM implementation
-    Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
+ Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, version LGPL-3.0-or-later.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, version LGPL-3.0-or-later.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 #ifndef VM_SCAN_HPP_
 #define VM_SCAN_HPP_
 
@@ -902,7 +902,7 @@ DataTable* const ReferenceData::getDestAR() {
         Intg len = referencePath.size();
 
         while (pos < len - 1) {
-            Arg& arg = referencePath[pos];
+            Arg &arg = referencePath[pos];
             try {
                 data = &rootAR->operator [](arg);
                 if (data->dataFlagBit == S_AR) {
@@ -4232,7 +4232,9 @@ bool Scanner::setQuaternionAndFlagBit(const AssemblyCode &asc,
         asf->quaternion.result_a = asf->quaternion.arg1_a;
 
     } else if (asc.type == F && asc.operator_s == ":" && asc.operatorFlag == Bs
-            && asc.arg2Flag == Bs && asc.arg2_s == "e") {
+            && asc.arg2Flag == Bs
+            && (asc.arg2_s == "e" || asc.arg2_s == "exp"
+                    || asc.arg2_s == "expression")) {
         if (asc.resultFlag != asc.arg1Flag || asc.result_i != asc.arg1_i) {
 #if debug
             cerr << "F (arg1,x,x,result) err(arg1 not equal result)" << endl;
@@ -4654,7 +4656,11 @@ const bool Scanner::scan() {
                 currentCode = Code(currentScopeAddr, a);
                 codeTable->addCode(currentCodeAddr, currentCode);
                 updateArgAttributeTable(currentCode);
-                if (currentCode.assemblyFormula.quaternion.arg2_s == "e") {
+                if (currentCode.assemblyFormula.quaternion.arg2_s == "e"
+                        || currentCode.assemblyFormula.quaternion.arg2_s
+                                == "exp"
+                        || currentCode.assemblyFormula.quaternion.arg2_s
+                                == "expression") {
                     tfptr->integrate = T_;
                 }
 

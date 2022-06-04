@@ -1,18 +1,18 @@
 /*  COOLang VM implementation
-    Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
+ Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, version LGPL-3.0-or-later.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, version LGPL-3.0-or-later.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #ifndef VM_HPP_
 #define VM_HPP_
@@ -219,7 +219,7 @@ public:
     Addr getSameTrBranchNextArgAddrIgnoreProperty(const Addr &ad,
             const Arg &arg);
     CodeTable copyTree(const Addr &ad) const;
-    void setRefArgAR(DataTable * ar);
+    void setRefArgAR(DataTable *ar);
 
     /**
      * @attention copy[adlow,adUp]
@@ -668,7 +668,7 @@ public:
 
     Strg arg1_s;
 
-    DataTable * arg1_ar = NULL;
+    DataTable *arg1_ar = NULL;
 
     Numb arg2_i = 0;
 
@@ -676,7 +676,7 @@ public:
 
     Strg arg2_s;
 
-    DataTable * arg2_ar = NULL;
+    DataTable *arg2_ar = NULL;
 
     Numb operator_i = 0;
 
@@ -684,7 +684,7 @@ public:
 
     Strg operator_s;
 
-    DataTable * operator_ar = NULL;
+    DataTable *operator_ar = NULL;
 
     Numb result_i = 0;
 
@@ -692,7 +692,7 @@ public:
 
     Strg result_s;
 
-    DataTable * result_ar = NULL;
+    DataTable *result_ar = NULL;
 
     Strg toStrg() const {
         stringstream ss;
@@ -932,8 +932,7 @@ const bool erase(Array_1 &arrfrom, const Array_2 &arr) {
     }
     return true;
 }
-Addr CodeTable::getCodeAddrByOffset(const Addr &addr,
-        const Intg offset) const {
+Addr CodeTable::getCodeAddrByOffset(const Addr &addr, const Intg offset) const {
     try {
         return addrdq.at(
                 getAddrPosition<deque<Addr> >(this->addrdq, addr) + offset);
@@ -1564,6 +1563,12 @@ const Addr TemplateFunctionTable::lastAccessibleTFAddr(
         origin = codeORscopeAddr;
     } else if (getAddrPosition(scopeTable->addrdq, codeORscopeAddr) > 0) {
         origin = (*scopeTable)[codeORscopeAddr].scopeCoor1;
+    } else {
+        //当此地址不是codeTable地址也不是scope地址时，
+        //直接采用代码表中最接近的上一行代码的地址
+        origin = codeTable->addrdq[getLastAddrPosition(codeTable->addrdq,
+                codeORscopeAddr)];
+
     }
     Addr dest;
     if (codeTable->find(upbound) == true) {

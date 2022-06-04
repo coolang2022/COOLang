@@ -14,7 +14,7 @@
 #include <map>
 
 //#define Strg string
-#define debug true
+#define debug false
 #define Intg int
 #define Numb double
 

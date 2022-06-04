@@ -1,18 +1,18 @@
 /*  COOLang VM implementation
-    Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
+ Copyright (C) 2022,Han JiPeng,Beijing Huagui Technology Co., Ltd
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, version LGPL-3.0-or-later.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation, version LGPL-3.0-or-later.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 #ifndef VM_INTEGRATE_HPP_
 #define VM_INTEGRATE_HPP_
@@ -635,7 +635,7 @@ DataTable* DataTable::getAccessibleAR(const Addr &arScopeAddr) {
             } else {
                 if (ar && ar->scopeStructureAddr == arScopeAddr) {
                     return ar;
-                } else if(ar) {
+                } else if (ar) {
                     candidateAR.insert(make_pair(ar->parentAR, 0));
                     candidateAR.insert(make_pair(ar->returnAR, 0));
                     for (auto queryAR : ar->queryARList) {
@@ -911,7 +911,16 @@ Data& DataTable::operator[](const Arg &arg) {
 #endif
                 DataTable *argr_locate_ar = this->getAccessibleAR(argr.asc);
                 if (argr_locate_ar) {
+                    //查询继承的类的成员、上层作用域的成员，
+                    //对于这类成员，变量的asc就是它所在ar的asc
                     return (*argr_locate_ar)[argr];
+                } else if (this->returnAR) {
+                    //如果一个变量存在、可访问、有asc，但无法检索到其asc对应的ar，
+                    //那么这个变量可能是函数调用中的形参，其所在作用域为函数声明作用域，故无ar
+                    //对于这类变量，进入returnAR查询
+                    if (this->returnAR->findall(argr)) {
+                        return this->returnAR->operator [](argr);
+                    }
                 } else {
                     throw argr;
                 }
@@ -2487,10 +2496,10 @@ void deleteInaccessibleSubtree(CodeTable &cdt) {
     argUseful.insert(it->operator [](0));
     argUseful.insert(it->operator [](1));
     argUseful.insert(it->operator [](3));
-    it++;
+    ++it;
     position--;
 
-    while (it != cdt.codedq.rend()) {
+    while (it != cdt.codedq.rend() && position >= 0) { //此处判断需考虑position，在cdt被修改后可能无法匹配rend
         if (argUseful.count(it->operator [](3))) {
             argUseful.insert(it->operator [](0));
             argUseful.insert(it->operator [](1));
@@ -2499,7 +2508,7 @@ void deleteInaccessibleSubtree(CodeTable &cdt) {
             cdt.eraseCode(position, 0);
         }
         position--;
-        it++;
+        ++it;
 
     }
 
@@ -5051,8 +5060,10 @@ const bool Integrator::addArgsToCurrentAR() {
                 queryAR_ = currentAR;
             }
 
-            DataTable * funAR = (*currentAR)[(*currentCode).scopeAddr].content_ar = new DataTable(
-                    currentAR, queryAR_, (*currentCode).scopeAddr);
+            DataTable *funAR =
+                    (*currentAR)[(*currentCode).scopeAddr].content_ar =
+                            new DataTable(currentAR, queryAR_,
+                                    (*currentCode).scopeAddr);
             funAR->scopeStructureAddr = currentCode->scopeAddr;
             currentAR = funAR;
         }
@@ -5120,8 +5131,8 @@ const bool Integrator::addArgsToCurrentAR() {
                 codeTable->getNextCodeAddr(currentCodeAddr));
 
         //5 设置nextCodeAddr
-//        nextCodeAddr = codeTable->getNextCodeAddr(currentCodeAddr);
-        nextCodeAddr = bfbScopeAddrUpBound;
+        nextCodeAddr = codeTable->getNextCodeAddr(currentCodeAddr);
+//        nextCodeAddr = bfbScopeAddrUpBound;
 
     }
 
@@ -5692,7 +5703,8 @@ void BackStepper::backwardFunctionIntegrate(const Addr &appendAddr,
 
 // 5 将bfb插入到codeTable中
     codeTable->insertCodeTable(addrmax, *bfbScopeCdt);
-
+//注意，此时虽然完成了整合，但是代码中变量的asc仍为正向函数的变量的asc，
+//因此随后需要将nextCodeAddr/pos设置为新插入的scope的开头
 //如此的狠角色跟我比还是不够看
 
 }

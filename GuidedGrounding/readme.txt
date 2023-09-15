@@ -1,0 +1,4 @@
+0 embedding逻辑在embeddingTraining.py中，同时具体如何组合不同ASM的embedding在trainingProcess.py的CodeSegmentDataset类中
+1 从trainingProcess.py文件开始执行，文件开头有需要调整的超参数，也可以在此文件修改loss function 在CustomLossFunction类中
+2 在运行将结束时会生成loss和accuracy的curve
+3 每5个epoch保存一次模型，最后训练结束时得到的是accuracy最高的模型

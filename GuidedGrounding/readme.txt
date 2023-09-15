@@ -2,3 +2,4 @@
 1 从trainingProcess.py文件开始执行，文件开头有需要调整的超参数，也可以在此文件修改loss function 在CustomLossFunction类中
 2 在运行将结束时会生成loss和accuracy的curve
 3 每5个epoch保存一次模型，最后训练结束时得到的是accuracy最高的模型
+4 内置BCDloss计算偏小，但其实基本没有学习效果，最后在评估过程－－evaluate函数　中的使用的ｌｏｓｓ算法是默认的BCE算法
